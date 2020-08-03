@@ -1,23 +1,18 @@
-package com.wipro.threadcontrolandpriorities;
-
-public class Ex1 implements Runnable {
-	static Thread t1;
-
+package com.wipro.maps;
+import java.util.HashMap;
+public class Ex1 {
 	public static void main(String[] args) {
-	t1 = new Thread(new Ex1());
-	t1.start();
-	}
-	@Override
-	public void run() {
-	for (int i = 1; i <= 10; i++) {
-	if (i == 6)
-	try {
-	t1.sleep(5000);
-	} catch (InterruptedException e) {
-	e.printStackTrace();
-	}
-	System.out.println(i);
-	}
-	}
-}
+		CountryMap countryMap = new CountryMap();
 
+		countryMap.saveCountryCapital("India", "Delhi");
+		countryMap.saveCountryCapital("Japan", "Tokyo");
+		countryMap.saveCountryCapital("USA", "Washington, D.C.");
+
+		System.out.println(countryMap.getCapital("India"));
+		System.out.println(countryMap.getCountry("Tokyo"));
+		System.out.println(countryMap.toArrayList());
+
+		HashMap<String, String> M2 = countryMap.swapKyeValue();
+		System.out.println(M2);
+		}
+}

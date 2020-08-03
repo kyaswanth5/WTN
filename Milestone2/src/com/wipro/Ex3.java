@@ -1,21 +1,22 @@
-package com.wipro.threadcontrolandpriorities;
-
-public class Ex3 implements Runnable {
+package com.wipro.maps;
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.Set;
+public class Ex3 {
 	public static void main(String[] args) {
-		Ex3 ex3 = new Ex3();
-		Thread t1 = new Thread(ex3, "Thread1");
-		Thread t2 = new Thread(ex3, "Thread2");
-		Thread t3 = new Thread(ex3, "Thread3");
-		t1.setPriority(Thread.MAX_PRIORITY);
-		t2.setPriority(Thread.MIN_PRIORITY);
-		t3.setPriority(Thread.NORM_PRIORITY);
-		t1.start();
-		t2.start();
-		t3.start();
+		Properties properties = new Properties();
+
+		properties.setProperty("West Bengal", "Kolkata");
+		properties.setProperty("Rajasthan", "Jodhpur");
+		properties.setProperty("Bihar", "Patna");
+
+		Set<Entry<Object, Object>> set = properties.entrySet();
+		Iterator<Entry<Object, Object>> it = set.iterator();
+
+		while (it.hasNext()) {
+		Entry<Object, Object> me = it.next();
+		System.out.println(me);
 		}
-		@Override
-		public void run() {
-		for (int i = 0; i < 100; i++)
-		System.out.println(Thread.currentThread().getName() + ": " + i);
 		}
 }
