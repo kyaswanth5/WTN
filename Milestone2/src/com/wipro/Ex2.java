@@ -1,51 +1,33 @@
-package com.wipro.maps;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-public class Ex2 {
-	public static void main(String[] args) {
-		Map<String, String> map = new HashMap<>();
+package com.wipro.threadcontrolandpriorities;
 
-		map.put("India", "Delhi");
-		map.put("Japan", "Tokyo");
-		map.put("Bangladesh", "Dhaka");
+public class Ex2 implements Runnable {
+	static Thread oddThread;
+	static Thread evenThread;public static void main(String[] args) {
+	Ex2 ex2 = new Ex2();
 
-		// a) Check if a particular key exists or not
-		Set<Entry<String, String>> set = map.entrySet();
-		Iterator<Entry<String, String>> it = set.iterator();
+	oddThread = new Thread(ex2, "OddThread");
+	evenThread = new Thread(ex2, "EvenThread");
 
-		while (it.hasNext()) {
-		Map.Entry<String, String> me = it.next();
+	oddThread.start();
+	evenThread.start();
+	}
+	@Override
+	public void run() {
+	try {
+	if (Thread.currentThread().getName().equals("OddThread"))
+	evenThread.join();
+	} catch (InterruptedException e) {
+	e.printStackTrace();
+	}
 
-		if (me.getKey().equals("Japan")) {
-		System.out.println("Key Japan exists");
-		break;
-		}
-		}
+	for (int i = 1; i <= 20; i++) {
+	if (Thread.currentThread().getName().equals("EvenThread")) {
+	if (i % 2 == 0) System.out.println(i);
+	}
 
-		// b) Check if a particular value exists or not
-		set = map.entrySet();
-		it = set.iterator();
-
-		while (it.hasNext()) {
-		Map.Entry<String, String> me = it.next();
-
-		if (me.getValue().equals("Delhi")) {
-		System.out.println("Value Delhi exists");
-		break;
-		}
-		}
-
-		// c) Use Iterator to loop through the map key set
-		set = map.entrySet();
-		it = set.iterator();
-
-		while (it.hasNext()) {
-		Map.Entry<String, String> me = it.next();
-		System.out.println(me);
-		//System.out.println("Key: " + me.getKey() + ", Value: " + me.getValue());
-		}
-		}
+	if (Thread.currentThread().getName().equals("OddThread")) {
+	if (i % 2 == 1) System.out.println(i);
+	}
+	}
+	}
 }
